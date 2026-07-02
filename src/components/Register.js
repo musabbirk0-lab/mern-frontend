@@ -8,6 +8,11 @@ export default function Register({ setToken, API_URL }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
+
+    // === DEBUG LINE ===
+    alert('Attempting to call: ' + `${API_URL}/api/auth/register`);
+    // ==================
+
     try {
       const res = await fetch(`${API_URL}/api/auth/register`, {
         method: 'POST',
@@ -19,7 +24,7 @@ export default function Register({ setToken, API_URL }) {
         localStorage.setItem('token', data.token);
         setToken(data.token);
       } else {
-        alert(data.msg || 'Registration failed');
+        alert('Server error: ' + (data.msg || 'No token received'));
       }
     } catch (err) {
       alert('Network or server error: ' + err.message);
